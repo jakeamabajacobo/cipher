@@ -2,12 +2,14 @@
 
 Public Class Form1
 
-    Public Function Cipher(ByVal strInput As String,
-         ByVal intShift As Integer, Optional ByVal strCharacterSet _
-         As String = "abcdefghijklmnopqrstuvwxyz" &
-         "ABCDEFGHIJKLMNOPQRSTUVWXYZ" & " ") As String
+
+    Dim intShift As Integer = 1
+    Dim strCharacterSet As String = "abcdefghijklmnopqrstuvwxyz" & "ABCDEFGHIJKLMNOPQRSTUVWXYZ" & " "
+
+    Public Function Cipher(ByVal strInput As String, ByVal intShift As Integer, ByVal strCharacterSet As String) As String
 
         Dim sbEncrypt As New StringBuilder With {.Capacity = strInput.Length}
+
         For Each c As Char In strInput
             Dim intChar As Integer = strCharacterSet.IndexOf(c)
             Do Until (intChar + intShift) < (strCharacterSet.Length)
@@ -20,11 +22,14 @@ Public Class Form1
     End Function
 
     Private Sub cipher_btn_Click(sender As Object, e As EventArgs) Handles cipher_btn.Click
-        txtbox2.Text = Cipher(txtbox2.Text, intShift:=1)
+
+        txtbox2.Text = Cipher(txtbox2.Text, intShift, strCharacterSet)
+
     End Sub
 
     Private Sub decipher_btn_Click(sender As Object, e As EventArgs) Handles decipher_btn.Click
-        Dim strCharacterSet As String = "abcdefghijklmnopqrstuvwxyz" & "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        txtbox2.Text = Cipher(txtbox2.Text, 1, String.Join("", strCharacterSet.Reverse))
+
+        txtbox2.Text = Cipher(txtbox2.Text, intShift, String.Join("", strCharacterSet.Reverse))
     End Sub
+
 End Class
